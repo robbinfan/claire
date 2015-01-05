@@ -1,0 +1,8 @@
+add_executable(logger_test Logger_test.cc)
+target_link_libraries(logger_test claire_common)
+
+add_executable(timeoutqueue_test TimeoutQueue_test.cc)
+target_link_libraries(timeoutqueue_test claire_common)
+
+add_executable(symbolizer_test Symbolizer_test.cc)
+target_link_libraries(symbolizer_test claire_common boost_regex)
