@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Flags for {{HOST_NAME}}</title>
+    <script src='static/jquery-1.10.2.min.js'></script>
+    <script src='static/jquery-1.10.3.ui.min.js'></script>
+    <script src="static/jquery.json-2.4.min.js" type="text/javascript"></script>
+    <script src="static/flags.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            bindEvent();
+        });
+    </script>
+  </head>
+  <body>
+    {{#FLAG_TABLE}}
+    <h4 style="text-align: center">{{FILE_NAME}}</h4>
+    <div>
+    <table border style="width:1200px; margin:auto">
+        <tr>
+          <td><b>Modify</b></td>
+          <td><b>Name</b></td>
+          <td><b>Type</b></td>
+          <td><b>Description</b></td>
+          <td><b>Default Value</b></td>
+          <td><b>Current Value</b></td>
+          <td><b>New Value</b></td>
+        </tr>
+        {{#FLAG_ROW}}
+        <tr style="{{FLAG_STYLE}}">
+          <td id="modify"><input type="checkbox"/></td>
+          <td class="name">{{FLAG_NAME}}</td>
+          <td>{{FLAG_TYPE}}</td>
+          <td>{{FLAG_DESCRIPTION}}</td>
+          <td>{{FLAG_DEFAULT_VALUE}}</td>
+          <td class="current_value">{{FLAG_CURRENT_VALUE}}</td>
+          <td><input class="new_value" type="text"/></td>
+        </tr>
+        {{/FLAG_ROW}}
+    </table>
+    </div>
+      {{/FLAG_TABLE}}
+
+      <br/>
+      <div style="text-align: center; width: 100%">
+          <button onclick="applyModify()" style="float:center"> Modify </button>
+      </div>
+
+    <br/>
+    <div class="error-messages" id="error-messages"></div>
+    <br/>
+
+  </body>
+</html>
