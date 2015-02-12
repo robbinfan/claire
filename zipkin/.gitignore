@@ -1,0 +1,6 @@
+*.cpp
+*_constants.*
+*_types.*
+Facebook*
+scribe*.h
+zipkinCore*.h
