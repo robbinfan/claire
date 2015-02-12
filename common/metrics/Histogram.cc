@@ -11,9 +11,9 @@
 #include <math.h>
 #include <limits.h>
 
-#include <rapidjson/document.h>
-#include <rapidjson/stringbuffer.h>
-#include <rapidjson/prettywriter.h>
+#include "thirdparty/rapidjson/document.h"
+#include "thirdparty/rapidjson/stringbuffer.h"
+#include "thirdparty/rapidjson/prettywriter.h"
 
 #include <claire/common/strings/StringPrintf.h>
 #include <claire/common/metrics/HistogramSamples.h>

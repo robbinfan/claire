@@ -1,7 +1,7 @@
 #include <claire/netty/http/Uri.h>
 #include <claire/common/strings/UriEscape.h>
 
-#include <gtest/gtest.h>
+#include "thirdparty/gtest/gtest.h"
 
 using namespace claire;
 

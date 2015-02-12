@@ -3,7 +3,7 @@
 #include <claire/netty/TcpConnection.h>
 #include <claire/netty/Buffer.h>
 
-#include <gtest/gtest.h>
+#include "thirdparty/gtest/gtest.h"
 
 using namespace claire;
 

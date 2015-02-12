@@ -38,7 +38,7 @@
 #ifndef _CLAIRE_COMMON_LOGGING_LOGGING_H
 #define _CLAIRE_COMMON_LOGGING_LOGGING_H
 
-#include <gflags/gflags.h>
+#include "thirdparty/gflags/gflags.h"
 
 #include <iosfwd>
 #include <string>

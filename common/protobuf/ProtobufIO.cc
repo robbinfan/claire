@@ -2,13 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file. See the AUTHORS file for names of contributors.
 
-#include <google/protobuf/message.h>
-#include <google/protobuf/descriptor.h>
+#include "thirdparty/google/protobuf/message.h"
+#include "thirdparty/google/protobuf/descriptor.h"
 
-#include <rapidjson/document.h>
-#include <rapidjson/error/en.h>
-#include <rapidjson/stringbuffer.h>
-#include <rapidjson/prettywriter.h>
+#include "thirdparty/rapidjson/document.h"
+#include "thirdparty/rapidjson/error/en.h"
+#include "thirdparty/rapidjson/stringbuffer.h"
+#include "thirdparty/rapidjson/prettywriter.h"
 
 #include <vector>
 

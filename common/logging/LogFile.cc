@@ -8,7 +8,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <gflags/gflags.h>
+#include "thirdparty/gflags/gflags.h"
 
 #include <claire/common/files/FileUtil.h>
 #include <claire/common/time/Timestamp.h>

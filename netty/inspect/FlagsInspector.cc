@@ -4,10 +4,10 @@
 
 #include <claire/netty/inspect/FlagsInspector.h>
 
-#include <ctemplate/template.h>
-#include <rapidjson/document.h>
-#include <rapidjson/stringbuffer.h>
-#include <rapidjson/prettywriter.h>
+#include "thirdparty/ctemplate/template.h"
+#include "thirdparty/rapidjson/document.h"
+#include "thirdparty/rapidjson/stringbuffer.h"
+#include "thirdparty/rapidjson/prettywriter.h"
 
 #include <vector>
 

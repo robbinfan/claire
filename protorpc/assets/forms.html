@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>ProtoRPC Methods for {{HOST_NAME}}</title>
+    <script src="static/jquery-1.10.2.min.js" type="text/javascript">
+    </script>
+    <script src="static/jquery.json-2.4.min.js" type="text/javascript">
+    </script>
+    <script src="static/forms.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      registryName = "{{REGISTRY_NAME}}";
+      serviceName = "{{SERVICE_NAME}}";
+      methodName = "{{METHOD_NAME}}";
+
+      $(function() {
+        loadServices(showMethods);
+      });
+
+    </script>
+    <style type="text/css">
+      .error-messages {
+        color: RED;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h3>ProtoRPC Methods for {{HOST_NAME}}</h3>
+
+    <div class="error-messages" id="error-messages"></div>
+
+    <div id="method-selector">
+
+  </body>
+</html>
+

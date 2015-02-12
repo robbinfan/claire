@@ -1,0 +1,38 @@
+import "google/protobuf/descriptor.proto";
+import "rpcmessage.proto";
+
+package claire.protorpc;
+option cc_generic_services = true;
+
+message HeartBeatRequest {
+}
+
+message HeartBeatResponse {
+    required string status = 1;
+}
+
+message ServicesRequest {
+}
+
+message ServiceDescriptor {
+  required string name = 1;
+}
+
+message ServicesResponse {
+  repeated ServiceDescriptor services = 1;
+}
+
+message GetFileSetRequest {
+  repeated string names = 1;
+}
+
+message GetFileSetResponse {
+  required google.protobuf.FileDescriptorSet file_set = 1;
+}
+
+service BuiltinService {
+  rpc HeartBeat (HeartBeatRequest) returns (HeartBeatResponse);
+  rpc Services (ServicesRequest) returns (ServicesResponse);
+  rpc GetFileSet (GetFileSetRequest) returns (GetFileSetResponse);
+}
+

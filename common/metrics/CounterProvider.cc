@@ -8,7 +8,7 @@
 
 #include <claire/common/metrics/CounterProvider.h>
 
-#include <gflags/gflags.h>
+#include "thirdparty/gflags/gflags.h"
 
 #include <boost/scoped_array.hpp>
 

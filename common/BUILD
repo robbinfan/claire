@@ -51,6 +51,10 @@ cc_library(
         './tracing/Tracing.cc',
         'EscapeTables.cc',
     ],
-    deps = [':gen_escape_table', '//thirdparty/gflags:gflags', '#pthread', '#rt'],
+    deps = [
+        ':gen_escape_table',
+        '//thirdparty/protobuf:protobuf',
+        '#pthread',
+        '#rt'],
     extra_cppflags = '-std=c++0x'
 )

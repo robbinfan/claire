@@ -4,10 +4,10 @@
 
 #include <claire/common/metrics/CounterSampler.h>
 
-#include <gflags/gflags.h>
-#include <rapidjson/document.h>
-#include <rapidjson/stringbuffer.h>
-#include <rapidjson/prettywriter.h>
+#include "thirdparty/gflags/gflags.h"
+#include "thirdparty/rapidjson/document.h"
+#include "thirdparty/rapidjson/stringbuffer.h"
+#include "thirdparty/rapidjson/prettywriter.h"
 
 #include <boost/bind.hpp>
 

@@ -5,8 +5,6 @@
 #include <stdio.h>
 #include <sys/resource.h>
 
-#include <gflags/gflags.h>
-
 #include <claire/common/time/Timestamp.h>
 #include <claire/common/logging/Logging.h>
 #include <claire/common/threading/ThreadPool.h>

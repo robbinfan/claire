@@ -34,7 +34,7 @@ cc_library(
         './resolver/StaticAddressResolver.cc',
         './resolver/DnsResolver.cc',
         './loadbalancer/LoadBalancerFactory.cc',
-        './inspect/PProfInspector.cc',
+#        './inspect/PProfInspector.cc',
         './inspect/FlagsInspector.cc',
         './inspect/StatisticsInspector.cc',
         './http/Uri.cc',

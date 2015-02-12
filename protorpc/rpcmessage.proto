@@ -1,0 +1,71 @@
+// Copyright (c) 2013 The claire-protorpc Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file. See the AUTHORS file for names of contributors.
+
+import "google/protobuf/descriptor.proto";
+
+package claire.protorpc;
+
+enum MessageType {
+  REQUEST = 1;
+  RESPONSE = 2;
+}
+
+enum CompressType {
+  Compress_None = 0;
+  Compress_Snappy = 1;
+}
+
+enum ErrorCode {
+  RPC_SUCCESS = 0;
+  RPC_ERROR_INVALID_CHECKSUM = 1;
+  RPC_ERROR_INVALID_SERVICE = 2;
+  RPC_ERROR_INVALID_METHOD = 3;
+  RPC_ERROR_INVALID_REQUEST = 4;
+  RPC_ERROR_INVALID_RESPONSE = 5;
+  RPC_ERROR_AUTH_FAIL = 6;
+  RPC_ERROR_UNCOMPRESS_FAIL = 7;
+  RPC_ERROR_PARSE_FAIL = 8;
+  RPC_ERROR_INVALID_LENGTH = 9;
+  RPC_ERROR_INVALID_TYPE = 10;
+  RPC_ERROR_INTERNAL_ERROR = 11;
+  RPC_ERROR_REQUEST_TIMEOUT = 12;
+  RPC_ERROR_UNKNOWN_ERROR = 13;
+}
+
+message TraceId {
+  required int64 trace_id = 1;
+  required int64 span_id = 2;
+  optional int64 parent_span_id = 3;
+}
+
+message RpcMessage {
+  required MessageType type = 1;
+  required fixed64 id = 2;
+
+  optional string service = 3;
+  optional string method = 4;
+
+  optional bytes request = 5;
+  optional bytes response = 6;
+
+  optional ErrorCode error = 7;
+  optional string reason = 8;
+
+  optional CompressType compress_type = 9;
+
+  optional TraceId trace_id = 10;
+}
+
+extend google.protobuf.ServiceOptions {
+  // service timeout in milliseconds
+  optional int64 service_timeout = 10000 [default = 1000];
+}
+
+extend google.protobuf.MethodOptions {
+  // method timeout in milliseconds, if not set then use method_timeout
+  optional int64 method_timeout = 10000;
+
+  optional CompressType request_compress_type = 10001;
+  optional CompressType expect_response_compress_type = 10002;
+}

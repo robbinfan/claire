@@ -4,10 +4,8 @@
 
 #include <claire/netty/inspect/PProfInspector.h>
 
-#ifdef HAVE_PPROF
-#include <gperftools/profiler.h>
-#include <gperftools/malloc_extension.h>
-#endif
+#include "thirdparty/gperftools/profiler.h"
+#include "thirdparty/gperftools/malloc_extension.h"
 
 #include <boost/bind.hpp>
 #include <boost/algorithm/string.hpp>
@@ -72,7 +70,6 @@ PProfInspector::PProfInspector(HttpServer* server)
         return ;
     }
 
-#ifdef HAVE_PPROF
     server_->Register("/pprof/profile",
                       boost::bind(&PProfInspector::OnProfile, this, _1),
                       false);
@@ -88,12 +85,10 @@ PProfInspector::PProfInspector(HttpServer* server)
     server_->Register("/pprof/symbol",
                       boost::bind(&PProfInspector::OnSymbol, _1),
                       false);
-#endif
 }
 
 void PProfInspector::OnProfile(const HttpConnectionPtr& connection)
 {
-#ifdef HAVE_PPROF
     auto request = connection->mutable_request();
     if (request->method() != HttpRequest::kGet)
     {
@@ -121,12 +116,10 @@ void PProfInspector::OnProfile(const HttpConnectionPtr& connection)
         }
         connections_.insert(connection->id());
     }
-#endif
 }
 
 void PProfInspector::OnProfileComplete()
 {
-#ifdef HAVE_PPROF
     ProfilerFlush();
     ProfilerStop();
 
@@ -143,27 +136,22 @@ void PProfInspector::OnProfileComplete()
         server_->SendByHttpConnectionId(connection, output);
         server_->Shutdown(connection);
     }
-#endif
 }
 
 void PProfInspector::OnHeap(const HttpConnectionPtr& connection)
 {
-#ifdef HAVE_PPROF
     std::string output;
     MallocExtension::instance()->GetHeapSample(&output);
     connection->Send(output);
     connection->Shutdown();
-#endif
 }
 
 void PProfInspector::OnGrowth(const HttpConnectionPtr& connection)
 {
-#ifdef HAVE_PPROF
     std::string output;
     MallocExtension::instance()->GetHeapGrowthStacks(&output);
     connection->Send(output);
     connection->Shutdown();
-#endif
 }
 
 void PProfInspector::OnCmdline(const HttpConnectionPtr& connection)

@@ -65,7 +65,7 @@ InetAddress::InetAddress(const StringPiece& address)
 {
     std::vector<std::string> result;
     boost::split(result, address, boost::is_any_of(":"));
-    CHECK_EQ(result.size(), 2);
+    CHECK_EQ(result.size(), 2u);
 
     auto saved_errno = errno;
     errno = 0;

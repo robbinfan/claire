@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>Form for {{SERVICE_NAME}}.{{METHOD_NAME}}</title>
+    <script src="static/jquery-1.10.2.min.js" type="text/javascript">
+    </script>
+    <script src="static/jquery.json-2.4.min.js" type="text/javascript">
+    </script>
+    <script src="static/forms.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      registryName = "{{REGISTRY_NAME}}";
+      serviceName = "{{SERVICE_NAME}}";
+      methodName = "{{METHOD_NAME}}";
+
+      $(function() {
+        loadServices(createForm);
+      });
+
+    </script>
+    <style type="text/css">
+      .error-messages {
+        color: RED;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="../form">&lt;&lt; Back to method selection</a>
+    <h3>Form for {{SERVICE_NAME}}.{{METHOD_NAME}}</h3>
+
+    <button id="form-expander">Hide Form</button>
+    <div id="form-panel"></div>
+
+    <div class="error-messages" id="error-messages"></div>
+
+    <div id="form-response"></div>
+
+  </body>
+</html>
+
