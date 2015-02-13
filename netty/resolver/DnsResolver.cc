@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file. See the AUTHORS file for names of contributors.
 
-#ifdef HAVE_CARES
 #include <claire/netty/resolver/DnsResolver.h>
 
 #include <ares.h>
@@ -153,7 +152,7 @@ private:
         loop_->AssertInLoopThread();
 
         auto channel = new Channel(loop_, sockfd);
-        channel->SetReadCallback(boost::bind(&Impl::OnRead, this, sockfd));
+        channel->set_read_callback(boost::bind(&Impl::OnRead, this, sockfd));
         channel->EnableReading();
         channels_.insert(sockfd, channel);
     }
@@ -226,5 +225,3 @@ void DnsResolver::Resolve(const std::string& address, const Resolver::ResolveCal
 }
 
 } // namespace claire
-
-#endif

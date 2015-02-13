@@ -51,6 +51,7 @@ cc_library(
         '#rt',
         '//thirdparty/ctemplate:ctemplate',
         '//thirdparty/gperftools:tcmalloc_and_profiler',
+        '//thirdparty/c-ares:cares',
         '//claire/common:claire_common',
     ],
     extra_cppflags = '-std=c++0x'
