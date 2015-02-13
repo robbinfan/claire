@@ -34,7 +34,7 @@ cc_library(
         './resolver/StaticAddressResolver.cc',
         './resolver/DnsResolver.cc',
         './loadbalancer/LoadBalancerFactory.cc',
-#        './inspect/PProfInspector.cc',
+        './inspect/PProfInspector.cc',
         './inspect/FlagsInspector.cc',
         './inspect/StatisticsInspector.cc',
         './http/Uri.cc',
@@ -45,6 +45,13 @@ cc_library(
         './http/HttpServer.cc',
         './http/HttpClient.cc'
     ],
-    deps = [':static_resource', '#pthread', '#rt', '//thirdparty/ctemplate:ctemplate', '//claire/common:claire_common'],
+    deps = [
+        ':static_resource',
+        '#pthread',
+        '#rt',
+        '//thirdparty/ctemplate:ctemplate',
+        '//thirdparty/gperftools:tcmalloc_and_profiler',
+        '//claire/common:claire_common',
+    ],
     extra_cppflags = '-std=c++0x'
 )
