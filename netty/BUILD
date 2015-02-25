@@ -49,6 +49,7 @@ cc_library(
         ':static_resource',
         '#pthread',
         '#rt',
+        '#boost_regex',
         '//thirdparty/ctemplate:ctemplate',
         '//thirdparty/gperftools:tcmalloc_and_profiler',
         '//thirdparty/c-ares:cares',

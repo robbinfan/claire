@@ -33,7 +33,7 @@ cc_library(
         './metrics/SampleVector.cc',
         './protobuf/ProtobufIO.cc',
         './strings/StringPiece.cc',
-        './strings/StringPrintf.cc',
+        './strings/StringUtil.cc',
         './strings/StringPrintf.cc',
         './strings/UriEscape.cc',
         './symbolizer/Dwarf.cc',

@@ -39,6 +39,7 @@ cc_library(
         '//claire/netty:claire_netty',
         ':static_resource',
         ':gen-rpc-proto',
-        '//thirdparty/protobuf-2.6.1/src:protobuf'
+        '//thirdparty/protobuf-2.6.1/src:protobuf',
+        '//thirdparty/snappy-1.1.2:snappy'
     ]
 )
