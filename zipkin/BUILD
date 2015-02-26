@@ -5,7 +5,8 @@ thrift_library(
 
 thrift_library(
     name = 'scribe',
-    srcs = 'scribe.thrift'
+    srcs = 'scribe.thrift',
+    deps = ':fb303'
 )
 
 thrift_library(
