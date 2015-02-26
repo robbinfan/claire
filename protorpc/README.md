@@ -6,15 +6,15 @@ It supprt almost all common Client/Server features, with powerful profile/debug/
 
 ## Tutorial ##
 
-See [Tutorial][2]
+See [Tutorial][1]
 
 ## Features ##
 
-See [Features][3]
+See [Features][2]
 
 ## Slide ##
 
-See [intro to claire-protorpc][4]
+See [intro to claire-protorpc][3]
 
   [1]: https://github.com/robbinfan/claire/protorpc/blob/master/Tutorial.md
   [2]: https://github.com/robbinfan/claire/protorpc/blob/master/Features.md
