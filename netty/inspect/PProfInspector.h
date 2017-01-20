@@ -22,16 +22,21 @@ public:
 private:
     void OnProfile(const HttpConnectionPtr& connection);
     void OnProfileComplete();
-
-    static void OnHeap(const HttpConnectionPtr& connection);
+    
+    void OnHeap(const HttpConnectionPtr& connection);
+    void OnHeapProfileComplete();
+    
     static void OnGrowth(const HttpConnectionPtr& connection);
     static void OnCmdline(const HttpConnectionPtr& connection);
     static void OnSymbol(const HttpConnectionPtr& connection);
-
+    static void OnHeapStats(const HttpConnectionPtr& connection);
+    static void OnHeapHistogram(const HttpConnectionPtr& connection);
+    
     HttpServer* server_;
 
     Mutex mutex_;
     std::set<HttpConnection::Id> connections_;
+    std::set<HttpConnection::Id> heap_connections_;
 };
 
 } // namespace claire
