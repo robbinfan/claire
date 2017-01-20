@@ -76,6 +76,12 @@ PProfInspector::PProfInspector(HttpServer* server)
     server_->Register("/pprof/heap",
                       boost::bind(&PProfInspector::OnHeap, _1),
                       false);
+    server_->Register("/pprof/heapstats",
+                      boost::bind(&PProfInspector::OnHeapStats, _1),
+                      false);
+    server_->Register("/pprof/heaphistogram",
+                      boost::bind(&PProfInspector::OnHeapHistogram, _1),
+                      false);        
     server_->Register("/pprof/growth",
                       boost::bind(&PProfInspector::OnGrowth, _1),
                       false);
@@ -109,7 +115,14 @@ void PProfInspector::OnProfile(const HttpConnectionPtr& connection)
         MutexLock lock(mutex_);
         if (connections_.empty())
         {
-            ProfilerStart(kProfileFile);
+            if (ProfilerStart(kProfileFile))
+            {
+                ProfilerRegisterThread();
+            }
+            else
+            {
+                LOG(ERROR) << "ProfilerStart failed";
+            }
             CHECK(!EventLoop::CurrentLoopInThisThread());
             EventLoop::CurrentLoopInThisThread()->RunAfter(seconds*1000,
                                                            boost::bind(&PProfInspector::OnProfileComplete, this));
@@ -140,12 +153,45 @@ void PProfInspector::OnProfileComplete()
 
 void PProfInspector::OnHeap(const HttpConnectionPtr& connection)
 {
+    char* env = getenv("TCMALLOC_SAMPLE_PARAMETER");
+    if (!env)
+    {
+        MutexLock lock(mutex_);
+        if (heap_connections_.empty())
+        {
+            HeapProfilerStart("/tmp/heap-profile.dat");
+            EventLoop::CurrentLoopInThisThread()->RunAfter(30*1000,
+                                                           boost::bind(&PProfInspector::OnHeapProfileComplete, this));
+        }
+        heap_connections_.insert(connection->id());
+        return ;
+    }
     std::string output;
     MallocExtension::instance()->GetHeapSample(&output);
     connection->Send(output);
     connection->Shutdown();
 }
 
+void PProfInspector::OnHeapProfileComplete()
+{
+    char* profile = GetHeapProfile();
+    std::string output(profile);
+    free(profile);
+    HeapProfilerStop();
+
+    std::set<HttpConnection::Id> connections;
+    {
+        MutexLock lock(mutex_);
+        heap_connections.swap(connections_);
+    }
+
+    for (auto& connection : connections)
+    {
+        server_->SendByHttpConnectionId(connection, output);
+        server_->Shutdown(connection);
+    }
+}
+ 
 void PProfInspector::OnGrowth(const HttpConnectionPtr& connection)
 {
     std::string output;
@@ -154,6 +200,30 @@ void PProfInspector::OnGrowth(const HttpConnectionPtr& connection)
     connection->Shutdown();
 }
 
+void PProfInspector::OnHeapHistogram(const HttpConnectionPtr& connection)
+{
+    int blocks = 0;
+    size_t total = 0;
+    int histogram[kMallocHistogramSize] = { 0, };
+
+    MallocExtension::instance()->MallocMemoryStats(&blocks, &total, histogram);
+
+    std::stringstream s;
+    s << "blocks " << blocks << "\ntotal " << total << "\n";
+    for (int i = 0; i < kMallocHistogramSize; ++i)
+        s << i << " " << histogram[i] << "\n";
+    connection->Send(s.str());
+    connection->Shutdown();
+}
+
+void PProfInspector::OnHeapStats(const HttpConnectionPtr& connection)
+{
+    char buf[1024*64];
+    MallocExtension::instance()->GetStats(buf, sizeof buf);
+    connection->Send(buf);
+    connection->Shutdown();
+}
+    
 void PProfInspector::OnCmdline(const HttpConnectionPtr& connection)
 {
     std::string output;
@@ -194,7 +264,7 @@ void PProfInspector::OnSymbol(const HttpConnectionPtr& connection)
 
         response.mutable_body()->append(address);
         response.mutable_body()->append("\t");
-        if (symbolizer.Symbolize(static_cast<uintptr_t>(std::stoull(address)), &name, &location))
+        if (symbolizer.Symbolize(static_cast<uintptr_t>(strtoull(address.c_str(), NULL, 16)), &name, &location))
         {
             response.mutable_body()->append(name.ToString());
             response.mutable_body()->append("\n");
